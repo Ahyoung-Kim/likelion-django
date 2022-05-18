@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
 {% block content %}
+<style>
+  #sbm {
+    border-color: royalblue;
+    border-radius: 3px;
+    color: royalblue;
+    background-color: white;
+  }
+  #sbm:hover {
+    border-color: white;
+    color: white;
+    background-color: royalblue;
+  }
+</style>
 
 <h1>제목: {{ post_detail.title }}</h1>
 <h3>날짜: {{ post_detail.date }}</h3>
@@ -21,7 +34,8 @@
 <form action="{% url 'new_comment' post_detail.id %}" method="POST">
   {% csrf_token %}
   {{ comment_form }}
-  <input type="submit" value="댓글 작성">
+  <br>
+  <input id="sbm" type="submit" value="댓글 작성">
 </form>
 
 {% endblock %}
