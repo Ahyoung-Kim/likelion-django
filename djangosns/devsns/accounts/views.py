@@ -1,5 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import auth
+from django.contrib.auth.models import User
 
 # Create your views here.
 def login(request):
@@ -22,3 +23,15 @@ def login(request):
 def logout(request):
   auth.logout(request)
   return redirect('home')
+
+def signup(request):
+  if request.method == 'POST':
+    # 회원가입
+    if request.POST['password'] == request.POST['repeat']:
+      new_user = User.objects.create_user(username=request.POST['username'],
+        password=request.POST['password'])
+      #auth.login(request, new_user)
+      return redirect('login')
+    else:
+      return redirect('signup')
+  return render(request, 'signup.html')

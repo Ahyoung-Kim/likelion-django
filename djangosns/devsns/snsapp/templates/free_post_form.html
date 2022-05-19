@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+  #sbm {
+    border-color: royalblue;
+    border-radius: 3px;
+    color: royalblue;
+    background-color: white;
+  }
+  #sbm:hover {
+    border-color: white;
+    color: white;
+    background-color: royalblue;
+  }
+</style>
+
+<h1>새 글 작성</h1>
+
+<form action="" method="POST" enctype="multipart/form-data">
+  {% csrf_token %}
+  <table>
+    {{ form.as_table }}
+  </table>
+  <br/>
+  <input id="sbm" type="submit" value="새 글 작성하기">
+</form>
+
+{% endblock %}
