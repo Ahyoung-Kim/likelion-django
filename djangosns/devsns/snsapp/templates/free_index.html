@@ -41,4 +41,18 @@
 </a>
 {% endif %}
 
+<!-- 페이지네이션 -->
+{% if freeposts.has_previous %}
+<a href="?page=1">첫 페이지</a>
+<a href="?page={{ freeposts.previous_page_number }}">이전 페이지</a>
+{% endif %}
+
+<span>{{ freeposts.number }}</span>
+<span> / {{ freeposts.paginator.num_pages }}</span>
+
+{% if freeposts.has_next %}
+<a href="?page={{ freeposts.next_page_number }}">다음 페이지</a>
+<a href="?page={{ freeposts.paginator.num_pages }}">마지막 페이지</a>
+{% endif %}
+
 {% endblock %}

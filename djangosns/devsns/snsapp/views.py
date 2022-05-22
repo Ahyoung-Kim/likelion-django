@@ -1,12 +1,19 @@
 from django.shortcuts import redirect, render, get_object_or_404
 from .forms import PostForm, CommentForm, FreeCommentForm, FreePostForm
 from .models import Post, FreePost, FreeComment
+from django.core.paginator import Paginator #페이지네이션
 
 # Create your views here.
 def home(request):
   # 글들의 목록들을 가져오자
   #posts = Post.objects.all()
   posts = Post.objects.filter().order_by('-date')
+
+  # Paginator(객체, 페이지안에 몇개 보일것인지)
+  paginator = Paginator(posts, 5)
+  pagenum = request.GET.get('page')  # 페이지 넘버에 해당하는 숫자 /?page=pagenum
+  posts = paginator.get_page(pagenum) # 페이지에 해당하는 포스트 정보들
+
   return render(request, 'index.html', {'posts':posts})
 
 
@@ -45,6 +52,10 @@ def new_comment(request, post_id):
 
 def freehome(request):
   freeposts = FreePost.objects.filter().order_by('-date')
+  # Paginator(객체, 페이지안에 몇개 보일것인지)
+  paginator = Paginator(freeposts, 5)
+  pagenum = request.GET.get('page')  # 페이지 넘버에 해당하는 숫자 /?page=pagenum
+  freeposts = paginator.get_page(pagenum) # 페이지에 해당하는 포스트 정보들
   return render(request, 'free_index.html', {'freeposts':freeposts})
 
 def freepostcreate(request):
